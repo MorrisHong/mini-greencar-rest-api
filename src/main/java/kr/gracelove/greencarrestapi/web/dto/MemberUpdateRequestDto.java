@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class UpdateMemberRequestDto {
+public class MemberUpdateRequestDto {
 
     private String name;
     private String email;
@@ -13,7 +13,7 @@ public class UpdateMemberRequestDto {
     private String password;
 
     @Builder
-    public UpdateMemberRequestDto(String name, String email, Address address, String password) {
+    public MemberUpdateRequestDto(String name, String email, Address address, String password) {
         this.name = name;
         this.email = email;
         this.address = address;
