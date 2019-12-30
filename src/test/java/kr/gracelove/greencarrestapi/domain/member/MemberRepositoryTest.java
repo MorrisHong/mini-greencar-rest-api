@@ -1,6 +1,7 @@
 package kr.gracelove.greencarrestapi.domain.member;
 
 import kr.gracelove.greencarrestapi.domain.address.Address;
+import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ class MemberRepositoryTest {
 
         Member savedMember = memberRepository.save(member);
 
-        MemberUpdateRequestDto dto = MemberUpdateRequestDto.builder()
+        MemberRequestDto dto = MemberRequestDto.builder()
                 .name(updatedName)
                 .email(updatedEmail)
                 .password(updatedPassword)
