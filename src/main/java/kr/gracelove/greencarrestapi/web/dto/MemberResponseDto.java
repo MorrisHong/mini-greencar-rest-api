@@ -3,14 +3,14 @@ package kr.gracelove.greencarrestapi.web.dto;
 import kr.gracelove.greencarrestapi.domain.address.Address;
 import kr.gracelove.greencarrestapi.domain.member.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class MemberResponseDto {
 
     private String name;
-
     private String email;
-
     private Address address;
 
 
