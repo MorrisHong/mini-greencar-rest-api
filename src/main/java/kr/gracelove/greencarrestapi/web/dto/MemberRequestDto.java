@@ -3,25 +3,27 @@ package kr.gracelove.greencarrestapi.web.dto;
 import kr.gracelove.greencarrestapi.domain.address.Address;
 import kr.gracelove.greencarrestapi.domain.member.Member;
 import lombok.Builder;
+import lombok.Getter;
 
-public class MemberSaveRequestDto {
+@Getter
+public class MemberRequestDto {
 
 
     private String name;
-
     private String email;
-
     private Address address;
-
     private String password;
+    private String password2;
 
     @Builder
-    public MemberSaveRequestDto(String name, String email, Address address, String password) {
+    public MemberRequestDto(String name, String email, Address address, String password, String password2) {
         this.name = name;
         this.email = email;
         this.address = address;
         this.password = password;
+        this.password2 = password2;
     }
+    //TODO : password validation.
 
     public Member toEntity() {
         return Member.builder()

@@ -2,7 +2,7 @@ package kr.gracelove.greencarrestapi.domain.member;
 
 import kr.gracelove.greencarrestapi.domain.BaseTimeEntity;
 import kr.gracelove.greencarrestapi.domain.address.Address;
-import kr.gracelove.greencarrestapi.web.dto.MemberUpdateRequestDto;
+import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ public class Member extends BaseTimeEntity {
         this.password = password;
     }
 
-    public void updateMember(MemberUpdateRequestDto dto) {
+    public void updateMember(MemberRequestDto dto) {
         this.name = dto.getName();
         this.email = dto.getEmail();
         this.address = dto.getAddress();

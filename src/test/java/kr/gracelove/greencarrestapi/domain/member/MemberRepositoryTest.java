@@ -1,7 +1,6 @@
 package kr.gracelove.greencarrestapi.domain.member;
 
 import kr.gracelove.greencarrestapi.domain.address.Address;
-import kr.gracelove.greencarrestapi.web.dto.MemberUpdateRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
