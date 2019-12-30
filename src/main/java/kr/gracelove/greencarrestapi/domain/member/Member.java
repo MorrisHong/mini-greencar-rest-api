@@ -2,12 +2,14 @@ package kr.gracelove.greencarrestapi.domain.member;
 
 import kr.gracelove.greencarrestapi.domain.BaseTimeEntity;
 import kr.gracelove.greencarrestapi.domain.address.Address;
+import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
