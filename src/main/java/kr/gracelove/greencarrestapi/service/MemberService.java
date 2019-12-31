@@ -34,7 +34,7 @@ public class MemberService {
 
     public Long updateMember(Long id, MemberRequestDto dto) {
         Member savedMember = memberRepository.findById(id).orElseThrow();
-        savedMember.updateMember(dto);
+        savedMember.updateMember(dto.getName(), dto.getEmail(), dto.getAddress(), dto.getPassword());
         return id;
     }
 

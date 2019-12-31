@@ -81,7 +81,7 @@ class MemberRepositoryTest {
                 .password(updatedPassword)
                 .address(address).build();
 
-        savedMember.updateMember(dto);
+        savedMember.updateMember(dto.getName(), dto.getEmail(), dto.getAddress(), dto.getPassword());
 
         assertThat(savedMember.getAddress()).isEqualTo(address);
         assertThat(savedMember.getName()).isEqualTo(updatedName);

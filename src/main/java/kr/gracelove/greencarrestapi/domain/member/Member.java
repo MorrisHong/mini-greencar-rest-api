@@ -39,11 +39,11 @@ public class Member extends BaseTimeEntity {
         this.password = password;
     }
 
-    public void updateMember(MemberRequestDto dto) {
-        this.name = dto.getName();
-        this.email = dto.getEmail();
-        this.address = dto.getAddress();
-        this.password = dto.getPassword();
+    public void updateMember(String name, String email, Address address, String password) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.password = password;
     }
 
 
