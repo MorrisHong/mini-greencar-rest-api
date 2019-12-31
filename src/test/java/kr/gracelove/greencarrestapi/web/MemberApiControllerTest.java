@@ -110,7 +110,10 @@ class MemberApiControllerTest {
 
         //then
         Assertions.assertThat(exchange.getStatusCode()).isEqualTo(HttpStatus.OK);
-     }
+
+        Member member1 = memberRepository.findById(exchange.getBody()).orElseThrow();
+        System.out.println("member1 = " + member1);
+    }
 
 
 
