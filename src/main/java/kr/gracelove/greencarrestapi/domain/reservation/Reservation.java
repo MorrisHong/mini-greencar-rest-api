@@ -1,5 +1,6 @@
 package kr.gracelove.greencarrestapi.domain.reservation;
 
+import kr.gracelove.greencarrestapi.domain.BaseTimeEntity;
 import kr.gracelove.greencarrestapi.domain.car.Car;
 import kr.gracelove.greencarrestapi.domain.member.Member;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Reservation {
+public class Reservation extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
