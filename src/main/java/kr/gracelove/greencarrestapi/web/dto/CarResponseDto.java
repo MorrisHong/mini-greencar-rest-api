@@ -4,8 +4,10 @@ import kr.gracelove.greencarrestapi.domain.car.Car;
 import kr.gracelove.greencarrestapi.domain.car.CarStatus;
 import kr.gracelove.greencarrestapi.domain.car.CarType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class CarResponseDto {
 
     private String name;
