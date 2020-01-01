@@ -52,6 +52,8 @@ class MemberServiceTest {
                 .build());
 
         Member member = memberRepository.findById(1L).get();
+
+        assertEquals(join, this.member.getId());
         assertEquals(member.getName(), this.member.getName());
         assertEquals(member.getAddress(), this.member.getAddress());
         assertEquals(member.getEmail(), this.member.getEmail());
