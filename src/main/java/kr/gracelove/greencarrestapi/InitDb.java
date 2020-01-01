@@ -34,7 +34,6 @@ public class InitDb implements ApplicationRunner {
         IntStream.rangeClosed(1, 10).forEach( index -> {
             Car car = Car.builder().name("붕붕이" + index).status(CarStatus.AVAILABLE).type(CarType.K5).build();
             carRepository.save(car);
-
         });
 
         Member grace = Member.builder()
