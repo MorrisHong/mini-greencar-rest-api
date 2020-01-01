@@ -59,4 +59,20 @@ class CarApiControllerTest {
         assertEquals(status, responseDto.getStatus());
     }
 
+    @Test
+    void 차_수정된다() {
+        Car entity = Car.builder()
+                .name("테스트")
+                .status(CarStatus.AVAILABLE)
+                .type(CarType.SONATA)
+                .build();
+
+        Car savedCar = carRepository.save(entity);
+        String url = "http://localhost:"+port+"/api/v1/cars/"+savedCar.getId();
+        HttpEntity<CarRequestDto> requestEntity = new HttpEntity<>(new CarRequestDto("업데이트", CarType.SONATA, CarStatus.BROKEN));
+        ResponseEntity<Long> exchange = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+        assertEquals(entity.getId(), exchange.getBody());
+    }
+
 }
