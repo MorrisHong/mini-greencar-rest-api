@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CarResponseDto {
 
+    private Long id;
     private String name;
     private CarType type;
     private CarStatus status;
 
     public CarResponseDto(Car car) {
+        this.id = car.getId();
         this.name = car.getName();
         this.type = car.getType();
         this.status = car.getStatus();
