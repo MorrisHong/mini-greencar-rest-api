@@ -38,10 +38,12 @@ public class ReservationService {
         return reservation.getId();
     }
 
+    @Transactional(readOnly = true)
     public ReservationResponseDto getReservation(Long id) {
         return reservationRepository.findById(id).map(ReservationResponseDto::new).orElseThrow();
     }
 
+    @Transactional(readOnly = true)
     public List<ReservationResponseDto> getReservations() {
         return reservationRepository.findAll().stream().map(ReservationResponseDto::new).collect(Collectors.toList());
     }
