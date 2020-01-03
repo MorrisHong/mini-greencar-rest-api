@@ -59,3 +59,21 @@
 #### 수정
 - PUT http://localhost:8080/v1/api/members/{id}
 - body : 위 등록을 참조하세요.
+
+
+###예약
+#### 등록
+  - POST http://localhost:8080/v1/api/reservations
+  - body
+    - carId : 등록된 자동차의 id입니다. (Long)
+    - memberId : 등록된 사용자의 id입니다. (Long)
+    ##### example
+    ```json   
+    {
+      "carId" : 1,
+      "memberId" : 1
+    }
+    ```
+####조회
+- GET http://localhost:8080/v1/api/reservations
+- GET http://localhost:8080/v1/api/reservations/{id}
