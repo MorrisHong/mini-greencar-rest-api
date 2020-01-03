@@ -1,6 +1,7 @@
 ## 엔드포인트
 
 ### 자동차
+---
 #### 등록
   - POST http://localhost:8080/api/v1/cars
   - body
@@ -24,6 +25,7 @@
   - body : 위 등록을 참조하세요
 
 ### 사용자
+---
 #### 등록
   - POST http://localhost:8080/api/v1/members
   - body
@@ -62,6 +64,7 @@
 
 
 ### 예약
+---
 #### 등록
   - POST http://localhost:8080/v1/api/reservations
   - body
