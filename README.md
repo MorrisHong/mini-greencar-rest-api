@@ -61,7 +61,7 @@
 - body : 위 등록을 참조하세요.
 
 
-###예약
+### 예약
 #### 등록
   - POST http://localhost:8080/v1/api/reservations
   - body
