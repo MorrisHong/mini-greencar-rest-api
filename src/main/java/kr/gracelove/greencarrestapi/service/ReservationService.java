@@ -51,11 +51,13 @@ public class ReservationService {
         return reservationRepository.findAll().stream().map(ReservationResponseDto::new).collect(Collectors.toList());
     }
 
-    public void cancel(Long id) {
+    public Long cancel(Long id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow();
         reservation.cancelReservation();
         Car car = reservation.getCar();
         car.changeStatus(CarStatus.AVAILABLE);
+
+        return reservation.getId();
     }
 
 

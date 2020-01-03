@@ -31,8 +31,8 @@ public class ReservationApiController {
     }
 
     @PutMapping("/api/v1/reservations/{id}")
-    public void cancelReservation(@PathVariable Long id) {
-        reservationService.cancel(id);
+    public Long cancelReservation(@PathVariable Long id) {
+        return reservationService.cancel(id);
     }
 
 }
