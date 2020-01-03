@@ -11,6 +11,7 @@ import kr.gracelove.greencarrestapi.domain.member.exception.MemberNotFoundExcept
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
+import kr.gracelove.greencarrestapi.domain.reservation.exception.ReservationNotFoundException;
 import kr.gracelove.greencarrestapi.web.dto.ReservationRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -51,7 +49,7 @@ public class ReservationService {
 
     @Transactional(readOnly = true)
     public ReservationResponseDto getReservation(Long id) {
-        return reservationRepository.findById(id).map(ReservationResponseDto::new).orElseThrow();
+        return reservationRepository.findById(id).map(ReservationResponseDto::new).orElseThrow( () -> new ReservationNotFoundException(id) );
     }
 
     @Transactional(readOnly = true)
@@ -60,7 +58,7 @@ public class ReservationService {
     }
 
     public Long cancel(Long id) {
-        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+        Reservation reservation = reservationRepository.findById(id).orElseThrow( () -> new ReservationNotFoundException(id) );
         reservation.cancelReservation();
         Car car = reservation.getCar();
         car.changeStatus(CarStatus.AVAILABLE);
