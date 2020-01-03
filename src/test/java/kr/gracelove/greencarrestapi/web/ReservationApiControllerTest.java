@@ -19,6 +19,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,11 +79,14 @@ class ReservationApiControllerTest {
     //TODO : FIX
     void 예약_등록() {
 
-        ReservationRequestDto requestDto = new ReservationRequestDto(carId, memberId);
+        ReservationRequestDto requestDto = new ReservationRequestDto(1L, 1L);
         HttpEntity<ReservationRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         String url = "http://localhost:"+port+"/api/v1/reservations";
         ResponseEntity<Long> exchange = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Long.class);
+
+        assertTrue(exchange.getStatusCode() == HttpStatus.OK);
+        assertTrue(exchange.getBody() > 0L);
 
 
     }
