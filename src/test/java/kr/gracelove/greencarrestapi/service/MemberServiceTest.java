@@ -3,9 +3,11 @@ package kr.gracelove.greencarrestapi.service;
 import kr.gracelove.greencarrestapi.domain.address.Address;
 import kr.gracelove.greencarrestapi.domain.member.Member;
 import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
+import kr.gracelove.greencarrestapi.domain.member.exception.MemberNotFoundException;
 import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.MemberResponseDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -76,6 +78,11 @@ class MemberServiceTest {
         Page<MemberResponseDto> members = memberService.getMembers(pageable);
         assertEquals(1, members.getTotalElements());
 
+    }
+
+    @Test
+    void 없는_회원_조회() {
+        assertThrows(MemberNotFoundException.class, () -> memberService.getMember(Long.MAX_VALUE));
     }
 
 }
