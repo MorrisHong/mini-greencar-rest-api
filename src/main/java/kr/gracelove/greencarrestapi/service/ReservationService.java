@@ -3,8 +3,11 @@ package kr.gracelove.greencarrestapi.service;
 import kr.gracelove.greencarrestapi.domain.car.Car;
 import kr.gracelove.greencarrestapi.domain.car.CarRepository;
 import kr.gracelove.greencarrestapi.domain.car.CarStatus;
+import kr.gracelove.greencarrestapi.domain.car.exception.CarNotAvailableException;
+import kr.gracelove.greencarrestapi.domain.car.exception.CarNotFoundException;
 import kr.gracelove.greencarrestapi.domain.member.Member;
 import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
+import kr.gracelove.greencarrestapi.domain.member.exception.MemberNotFoundException;
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
@@ -29,8 +32,11 @@ public class ReservationService {
     private final CarRepository carRepository;
 
     public Long reservation(ReservationRequestDto requestDto) {
-        Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(() -> new RuntimeException("해당 사용자가 없습니다. id : "+requestDto.getMemberId()));
-        Car car = carRepository.findById(requestDto.getCarId()).orElseThrow();
+        Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(() -> new MemberNotFoundException(requestDto.getMemberId()));
+
+        Car car = carRepository.findById(requestDto.getCarId()).orElseThrow(() -> new CarNotFoundException(requestDto.getCarId()));
+
+        if(car.getStatus() != CarStatus.AVAILABLE) throw new CarNotAvailableException(car.getId());
 
         Reservation reservation = Reservation.builder()
                 .status(ReservationStatus.RESERVATION)
