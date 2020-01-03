@@ -1,5 +1,7 @@
 package kr.gracelove.greencarrestapi.web;
 
+import kr.gracelove.greencarrestapi.domain.car.Car;
+import kr.gracelove.greencarrestapi.domain.car.CarStatus;
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
@@ -49,7 +51,9 @@ class ReservationApiControllerTest {
         assertTrue(exchange.getBody() > 0L);
 
         Reservation reservation = reservationRepository.findById(exchange.getBody()).get();
+        Car car = reservation.getCar();
         assertTrue(reservation.getStatus() == ReservationStatus.RESERVATION);
+        assertTrue(car.getStatus() == CarStatus.RESERVED);
 
     }
 
@@ -61,8 +65,10 @@ class ReservationApiControllerTest {
         ResponseEntity<Long> exchange = restTemplate.exchange(url, HttpMethod.PUT, null, Long.class);
 
         Reservation reservation = reservationRepository.findById(exchange.getBody()).get();
-        assertTrue(reservation.getStatus() == ReservationStatus.CANCEL);
+        Car car = reservation.getCar();
 
+        assertTrue(reservation.getStatus() == ReservationStatus.CANCEL);
+        assertTrue(car.getStatus() == CarStatus.AVAILABLE);
 
     }
 
