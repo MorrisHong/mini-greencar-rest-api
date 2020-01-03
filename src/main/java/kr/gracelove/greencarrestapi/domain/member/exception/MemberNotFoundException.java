@@ -2,7 +2,6 @@ package kr.gracelove.greencarrestapi.domain.member.exception;
 
 import lombok.Getter;
 
-@Getter
 public class MemberNotFoundException extends RuntimeException {
 
     public MemberNotFoundException(Long memberId) {

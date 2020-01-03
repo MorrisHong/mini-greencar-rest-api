@@ -4,6 +4,7 @@ import kr.gracelove.greencarrestapi.domain.car.Car;
 import kr.gracelove.greencarrestapi.domain.car.CarRepository;
 import kr.gracelove.greencarrestapi.domain.car.CarStatus;
 import kr.gracelove.greencarrestapi.domain.car.CarType;
+import kr.gracelove.greencarrestapi.domain.car.exception.CarNotFoundException;
 import kr.gracelove.greencarrestapi.web.dto.CarRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.CarResponseDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,6 +74,11 @@ class CarServiceTest {
 
         assertEquals(1, cars.getTotalElements());
 
+    }
+
+    @Test
+    void 없는_자동차_등록()  {
+        assertThrows(CarNotFoundException.class, () -> carService.getCar(Long.MAX_VALUE));
     }
 
 }

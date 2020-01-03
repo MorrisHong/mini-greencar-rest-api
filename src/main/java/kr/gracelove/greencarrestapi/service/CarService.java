@@ -2,6 +2,7 @@ package kr.gracelove.greencarrestapi.service;
 
 import kr.gracelove.greencarrestapi.domain.car.Car;
 import kr.gracelove.greencarrestapi.domain.car.CarRepository;
+import kr.gracelove.greencarrestapi.domain.car.exception.CarNotFoundException;
 import kr.gracelove.greencarrestapi.web.dto.CarRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.CarResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,7 +20,7 @@ public class CarService {
 
     @Transactional(readOnly = true)
     public CarResponseDto getCar(Long id) {
-        return carRepository.findById(id).map(CarResponseDto::new).orElseThrow();
+        return carRepository.findById(id).map(CarResponseDto::new).orElseThrow( () -> new CarNotFoundException(id));
     }
 
     @Transactional(readOnly = true)
