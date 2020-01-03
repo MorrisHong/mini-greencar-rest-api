@@ -12,7 +12,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,6 +57,22 @@ class CarServiceTest {
         assertEquals(this.car.getName(), car.getName());
         assertEquals(this.car.getStatus(), car.getStatus());
         assertEquals(this.car.getType(), car.getType());
+    }
+
+    @Test
+    void 자동차_목록_조회() {
+        List<Car> list = new ArrayList<>();
+        list.add(car);
+
+        Pageable pageable = PageRequest.of(0, 1);
+        Page<Car> pageList = new PageImpl<>(list);
+
+        given(carRepository.findAll(pageable)).willReturn(pageList);
+
+        Page<CarResponseDto> cars = carService.getCars(pageable);
+
+        assertEquals(1, cars.getTotalElements());
+
     }
 
 }

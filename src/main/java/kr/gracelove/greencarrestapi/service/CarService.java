@@ -5,6 +5,8 @@ import kr.gracelove.greencarrestapi.domain.car.CarRepository;
 import kr.gracelove.greencarrestapi.web.dto.CarRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.CarResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,8 @@ public class CarService {
     }
 
     @Transactional(readOnly = true)
-    public List<CarResponseDto> getCars() {
-        return carRepository.findAll().stream().map(CarResponseDto::new).collect(Collectors.toList());
+    public Page<CarResponseDto> getCars(Pageable pageable) {
+        return carRepository.findAll(pageable).map(CarResponseDto::new);
     }
 
     public Long resisterCar(CarRequestDto dto) {

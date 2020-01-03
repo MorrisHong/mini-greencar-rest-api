@@ -6,6 +6,8 @@ import kr.gracelove.greencarrestapi.service.CarService;
 import kr.gracelove.greencarrestapi.web.dto.CarResponseDto;
 import kr.gracelove.greencarrestapi.web.dto.CarRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,8 @@ public class CarApiController {
 
     @ApiOperation(value = "자동차 목록 조회", notes = "등록된 모든 자동차를 조회한다.")
     @GetMapping("/api/v1/cars")
-    public List<CarResponseDto> getCars() {
-        return carService.getCars();
+    public Page<CarResponseDto> getCars(Pageable pageable) {
+        return carService.getCars(pageable);
     }
 
     @ApiOperation(value = "자동차 정보 변경", notes = "해당 id의 자동차 정보를 수정한다.")

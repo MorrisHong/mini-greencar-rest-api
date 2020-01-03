@@ -5,6 +5,8 @@ import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
 import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,8 @@ public class MemberService {
         return new MemberResponseDto(member);
     }
 
-    public List<MemberResponseDto> getMembers() {
-        return memberRepository.findAll().stream().map(MemberResponseDto::new).collect(Collectors.toList());
+    public Page<MemberResponseDto> getMembers(Pageable pageable) {
+        return memberRepository.findAll(pageable).map(MemberResponseDto::new);
     }
 
     public Long join(MemberRequestDto member) {

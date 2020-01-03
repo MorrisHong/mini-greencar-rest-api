@@ -11,6 +11,8 @@ import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
 import kr.gracelove.greencarrestapi.web.dto.ReservationRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,8 +49,8 @@ public class ReservationService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReservationResponseDto> getReservations() {
-        return reservationRepository.findAll().stream().map(ReservationResponseDto::new).collect(Collectors.toList());
+    public Page<ReservationResponseDto> getReservations(Pageable pageable) {
+        return reservationRepository.findAll(pageable).map(ReservationResponseDto::new);
     }
 
     public Long cancel(Long id) {

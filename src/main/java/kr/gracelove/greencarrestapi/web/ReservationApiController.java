@@ -6,6 +6,8 @@ import kr.gracelove.greencarrestapi.service.ReservationService;
 import kr.gracelove.greencarrestapi.web.dto.ReservationRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,8 @@ public class ReservationApiController {
 
     @ApiOperation(value = "예약 목록 조회", notes = "등록된 모든 예약을 조회한다.")
     @GetMapping("/api/v1/reservations")
-    public List<ReservationResponseDto> getReservations() {
-        return reservationService.getReservations();
+    public Page<ReservationResponseDto> getReservations(Pageable pageable) {
+        return reservationService.getReservations(pageable);
     }
 
     @ApiOperation(value = "예약 취소", notes = "해당 id의 예약을 취소한다.")

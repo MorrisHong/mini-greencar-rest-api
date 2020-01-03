@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,17 +65,17 @@ class MemberServiceTest {
 
     @Test
     void 회원조회_리스트() {
+
         List<Member> list = new ArrayList<>();
         list.add(member);
+        Page<Member> pageList = new PageImpl<>(list);
 
-        given(memberRepository.findAll()).willReturn(list);
+        Pageable pageable = PageRequest.of(0, 10);
+        given(memberRepository.findAll(pageable)).willReturn(pageList);
 
-        List<MemberResponseDto> members = memberService.getMembers();
+        Page<MemberResponseDto> members = memberService.getMembers(pageable);
+        assertEquals(1, members.getTotalElements());
 
-        assertEquals(1, members.size());
-        assertEquals(member.getName(), members.get(0).getName());
-        assertEquals(member.getAddress(), members.get(0).getAddress());
-        assertEquals(member.getEmail(), members.get(0).getEmail());
     }
 
 }

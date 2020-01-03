@@ -6,6 +6,8 @@ import kr.gracelove.greencarrestapi.service.MemberService;
 import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class MemberApiController {
 
     @ApiOperation(value = "회원 목록 조회", notes = "등록된 모든 회원을 조회한다.")
     @GetMapping("/api/v1/members")
-    public List<MemberResponseDto> members() {
-        return memberService.getMembers();
+    public Page<MemberResponseDto> members(Pageable pageable) {
+        return memberService.getMembers(pageable);
     }
 
     @ApiOperation(value = "회원 등록", notes = "회원을 등록한다.")
