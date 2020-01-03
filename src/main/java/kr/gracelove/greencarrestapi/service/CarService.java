@@ -33,7 +33,7 @@ public class CarService {
     }
 
     public Long updateCarInfo(Long id, CarRequestDto requestDto) {
-        Car car = carRepository.findById(id).orElseThrow();
+        Car car = carRepository.findById(id).orElseThrow(() -> new CarNotFoundException(id) );
 
         if(requestDto.getStatus() != null) {
             car.changeStatus(requestDto.getStatus());
