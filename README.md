@@ -74,6 +74,9 @@
       "memberId" : 1
     }
     ```
-####조회
+#### 조회
 - GET http://localhost:8080/v1/api/reservations
 - GET http://localhost:8080/v1/api/reservations/{id}
+
+#### 예약취소
+- PUT http://localhost:8080/v1/api/reservations/{id}
