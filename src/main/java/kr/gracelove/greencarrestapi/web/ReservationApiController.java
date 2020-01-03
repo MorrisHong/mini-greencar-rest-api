@@ -2,12 +2,10 @@ package kr.gracelove.greencarrestapi.web;
 
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.service.ReservationService;
+import kr.gracelove.greencarrestapi.web.dto.ReservationRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +16,8 @@ public class ReservationApiController {
     private final ReservationService reservationService;
 
     @PostMapping("/api/v1/reservations")
-    public Long registerReservation(Long memberId, Long carId) {
-        return reservationService.reservation(memberId, carId);
+    public Long registerReservation(@RequestBody ReservationRequestDto requestDto) {
+        return reservationService.reservation(requestDto);
     }
 
     @GetMapping("/api/v1/reservations/{id}")
@@ -30,6 +28,11 @@ public class ReservationApiController {
     @GetMapping("/api/v1/reservations")
     public List<ReservationResponseDto> getReservations() {
         return reservationService.getReservations();
+    }
+
+    @PutMapping("/api/v1/reservations/{id}")
+    public void cancelReservation(@PathVariable Long id) {
+        reservationService.cancel(id);
     }
 
 }

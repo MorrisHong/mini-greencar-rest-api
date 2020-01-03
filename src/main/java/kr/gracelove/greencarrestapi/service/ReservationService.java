@@ -8,6 +8,7 @@ import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
+import kr.gracelove.greencarrestapi.web.dto.ReservationRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,16 +26,16 @@ public class ReservationService {
     private final MemberRepository memberRepository;
     private final CarRepository carRepository;
 
-    public Long reservation(Long memberId, Long carId) {
-        Member member = memberRepository.findById(memberId).orElseThrow();
-        Car car = carRepository.findById(carId).orElseThrow();
-
-        car.changeStatus(CarStatus.RESERVED);
+    public Long reservation(ReservationRequestDto requestDto) {
+        Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(() -> new RuntimeException("해당 사용자가 없습니다. id : "+requestDto.getMemberId()));
+        Car car = carRepository.findById(requestDto.getCarId()).orElseThrow();
 
         Reservation reservation = Reservation.builder()
                 .status(ReservationStatus.RESERVATION)
                 .car(car)
                 .member(member).build();
+
+        car.changeStatus(CarStatus.RESERVED);
 
         reservationRepository.save(reservation);
         return reservation.getId();
