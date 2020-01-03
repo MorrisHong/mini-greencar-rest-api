@@ -52,15 +52,19 @@ public class InitDb implements ApplicationRunner {
         memberRepository.save(grace);
         memberRepository.save(hong);
 
+        Car car = carRepository.findById(1L).get();
+
         Reservation reservation1 = Reservation.builder()
                 .member(grace)
-                .car(carRepository.findById(1L).get())
+                .car(car)
                 .status(ReservationStatus.RESERVATION)
                 .build();
 
+        Car car1 = carRepository.findById(2L).get();
+
         Reservation reservation2 = Reservation.builder()
                 .member(hong)
-                .car(carRepository.findById(2L).get())
+                .car(car1)
                 .status(ReservationStatus.RESERVATION)
                 .build();
 
