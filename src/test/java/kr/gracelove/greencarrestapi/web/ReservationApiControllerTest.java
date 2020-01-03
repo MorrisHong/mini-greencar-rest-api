@@ -43,7 +43,6 @@ class ReservationApiControllerTest {
 
 
     @Test
-    //TODO : FIX
     void 예약_등록_조회() {
 
         Car savedCar = carRepository.save(Car.builder()
@@ -68,16 +67,38 @@ class ReservationApiControllerTest {
         assertTrue(exchange.getStatusCode() == HttpStatus.OK);
         assertTrue(exchange.getBody() > 0L);
 
+        // 예약 후에 CarStatus가 RESERVED인가?
+        Car car = carRepository.findById(savedCar.getId()).get();
+        assertTrue(car.getStatus() == CarStatus.RESERVED);
     }
 
     @Test
     void 예약_취소() throws Exception {
 
-        String url = "http://localhost:"+port+"/api/v1/reservations/"+1;
+        Car savedCar = carRepository.save(Car.builder()
+                .name("붕붕이")
+                .type(CarType.GENESIS)
+                .status(CarStatus.AVAILABLE)
+                .build());
+
+        Member savedMember = memberRepository.save(Member.builder()
+                .name("test")
+                .password("1234")
+                .email("govlmo91@gmail.com")
+                .address(new Address("경기도 용인시 처인구", "백옥대로", "111-123"))
+                .build());
+
+        Reservation savedReservation = reservationRepository.save(Reservation.builder()
+                .status(ReservationStatus.RESERVATION)
+                .car(savedCar)
+                .member(savedMember)
+                .build());
+
+
+        String url = "http://localhost:"+port+"/api/v1/reservations/"+savedReservation.getId();
         ResponseEntity<Long> exchange = restTemplate.exchange(url, HttpMethod.PUT, null, Long.class);
 
         Reservation reservation = reservationRepository.findById(exchange.getBody()).get();
-        Car car = reservation.getCar();
 
         assertTrue(reservation.getStatus() == ReservationStatus.CANCEL);
 
