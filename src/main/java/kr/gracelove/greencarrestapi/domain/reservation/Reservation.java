@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -26,9 +27,17 @@ public class Reservation extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @NotNull
+    private ReservationStatus status;
+
     @Builder
-    public Reservation(Car car, Member member) {
+    public Reservation(Car car, Member member, ReservationStatus status) {
         this.car = car;
         this.member = member;
+        this.status = status;
+    }
+
+    public void cancelReservation() {
+        this.status = ReservationStatus.CANCEL;
     }
 }

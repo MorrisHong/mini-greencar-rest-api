@@ -11,20 +11,17 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class ReservationResponseDto {
-    private Long id;
     private String carName;
     private String memberName;
     private LocalDateTime reservationDate;
 
-    public ReservationResponseDto(Long id, String carName, String memberName, LocalDateTime reservationDate) {
-        this.id = id;
+    public ReservationResponseDto(String carName, String memberName, LocalDateTime reservationDate) {
         this.carName = carName;
         this.memberName = memberName;
         this.reservationDate = reservationDate;
     }
 
     public ReservationResponseDto(Reservation reservation) {
-        this.id = reservation.getId();
         this.carName = reservation.getCar().getName();
         this.memberName = reservation.getMember().getName();
         this.reservationDate = reservation.getModifiedDate();

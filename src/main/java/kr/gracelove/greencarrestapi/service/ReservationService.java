@@ -7,6 +7,7 @@ import kr.gracelove.greencarrestapi.domain.member.Member;
 import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
+import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
 import kr.gracelove.greencarrestapi.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class ReservationService {
         car.changeStatus(CarStatus.RESERVED);
 
         Reservation reservation = Reservation.builder()
+                .status(ReservationStatus.RESERVATION)
                 .car(car)
                 .member(member).build();
 
@@ -46,6 +48,13 @@ public class ReservationService {
     @Transactional(readOnly = true)
     public List<ReservationResponseDto> getReservations() {
         return reservationRepository.findAll().stream().map(ReservationResponseDto::new).collect(Collectors.toList());
+    }
+
+    public void cancel(Long id) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+        reservation.cancelReservation();
+        Car car = reservation.getCar();
+        car.changeStatus(CarStatus.AVAILABLE);
     }
 
 

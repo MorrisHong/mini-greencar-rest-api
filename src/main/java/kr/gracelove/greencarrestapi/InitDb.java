@@ -9,6 +9,7 @@ import kr.gracelove.greencarrestapi.domain.member.Member;
 import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
+import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -54,11 +55,13 @@ public class InitDb implements ApplicationRunner {
         Reservation reservation1 = Reservation.builder()
                 .member(grace)
                 .car(carRepository.findById(1L).get())
+                .status(ReservationStatus.RESERVATION)
                 .build();
 
         Reservation reservation2 = Reservation.builder()
                 .member(hong)
                 .car(carRepository.findById(2L).get())
+                .status(ReservationStatus.RESERVATION)
                 .build();
 
         reservationRepository.save(reservation1);
