@@ -32,6 +32,7 @@ public class MemberService {
     }
 
     public Long join(MemberRequestDto member) {
+        member.isCorrectPassword();
         return memberRepository.save(member.toEntity()).getId();
     }
 

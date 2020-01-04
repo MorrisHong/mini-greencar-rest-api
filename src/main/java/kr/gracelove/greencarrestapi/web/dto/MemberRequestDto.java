@@ -2,6 +2,7 @@ package kr.gracelove.greencarrestapi.web.dto;
 
 import kr.gracelove.greencarrestapi.domain.address.Address;
 import kr.gracelove.greencarrestapi.domain.member.Member;
+import kr.gracelove.greencarrestapi.domain.member.exception.MemberIncorrectPassword;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,7 +24,10 @@ public class MemberRequestDto {
         this.password = password;
         this.password2 = password2;
     }
-    //TODO : password validation.
+
+    public void isCorrectPassword() {
+        if(!password.equals(password2)) throw new MemberIncorrectPassword();
+    }
 
     public Member toEntity() {
         return Member.builder()

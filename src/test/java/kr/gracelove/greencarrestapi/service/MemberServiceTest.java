@@ -3,6 +3,7 @@ package kr.gracelove.greencarrestapi.service;
 import kr.gracelove.greencarrestapi.domain.address.Address;
 import kr.gracelove.greencarrestapi.domain.member.Member;
 import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
+import kr.gracelove.greencarrestapi.domain.member.exception.MemberIncorrectPassword;
 import kr.gracelove.greencarrestapi.domain.member.exception.MemberNotFoundException;
 import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
 import kr.gracelove.greencarrestapi.web.dto.MemberResponseDto;
@@ -55,6 +56,7 @@ class MemberServiceTest {
                 .email(member.getEmail())
                 .address(member.getAddress())
                 .password(member.getPassword())
+                .password2(member.getPassword())
                 .build());
 
         MemberResponseDto member = memberService.getMember(1L);
@@ -83,6 +85,14 @@ class MemberServiceTest {
     @Test
     void 없는_회원_조회() {
         assertThrows(MemberNotFoundException.class, () -> memberService.getMember(Long.MAX_VALUE));
+    }
+
+    @Test
+    void 비밀번호_확인_실패() {
+        assertThrows(MemberIncorrectPassword.class, () -> memberService.join(MemberRequestDto.builder()
+                .password("1234")
+                .password2("1111")
+                .build()));
     }
 
 }

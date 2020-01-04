@@ -45,6 +45,7 @@ class MemberApiControllerTest {
                 .address(address)
                 .email(email)
                 .password(password)
+                .password2(password)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/members";
