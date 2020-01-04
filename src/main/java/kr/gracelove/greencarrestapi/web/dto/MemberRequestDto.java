@@ -29,6 +29,10 @@ public class MemberRequestDto {
         if(!password.equals(password2)) throw new MemberIncorrectPassword();
     }
 
+    public void encodePassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
+
     public Member toEntity() {
         return Member.builder()
                 .name(this.name)

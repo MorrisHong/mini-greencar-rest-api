@@ -10,6 +10,12 @@ import kr.gracelove.greencarrestapi.domain.member.MemberRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.Reservation;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationRepository;
 import kr.gracelove.greencarrestapi.domain.reservation.ReservationStatus;
+import kr.gracelove.greencarrestapi.service.CarService;
+import kr.gracelove.greencarrestapi.service.MemberService;
+import kr.gracelove.greencarrestapi.service.ReservationService;
+import kr.gracelove.greencarrestapi.web.dto.CarRequestDto;
+import kr.gracelove.greencarrestapi.web.dto.MemberRequestDto;
+import kr.gracelove.greencarrestapi.web.dto.ReservationRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -21,9 +27,9 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class InitDb implements ApplicationRunner {
 
-    private final CarRepository carRepository;
-    private final MemberRepository memberRepository;
-    private final ReservationRepository reservationRepository;
+    private final CarService carService;
+    private final MemberService memberService;
+    private final ReservationService reservationService;
 
 
 
@@ -33,43 +39,45 @@ public class InitDb implements ApplicationRunner {
         Address address2 = new Address("경기도 용인시", "백옥대로", "111-1111");
 
         IntStream.rangeClosed(1, 10).forEach( index -> {
-            Car car = Car.builder().name("붕붕이" + index).status(CarStatus.AVAILABLE).type(CarType.K5).pricePerHours(20000).build();
-            carRepository.save(car);
+            carService.resisterCar(new CarRequestDto("붕붕이" + index, CarType.SONATA, CarStatus.AVAILABLE, 20000));
         });
 
-        Member grace = Member.builder()
-                .name("grace")
-                .address(address1)
-                .email("gracelove91@naver.com")
-                .password("1111").build();
 
-        Member hong = Member.builder()
+        Long grace = memberService.join(MemberRequestDto.builder()
+                .password("1111")
+                .password2("1111")
+                .address(address1)
+                .name("grace")
+                .email("gracelove91@naver.com")
+                .build());
+
+        Long eunmo = memberService.join(MemberRequestDto.builder()
                 .name("eunmo")
                 .address(address2)
                 .email("govlmo91@gmail.com")
-                .password("2222").build();
+                .password("2222")
+                .password2("2222").build());
 
-        memberRepository.save(grace);
-        memberRepository.save(hong);
+        Long carId1 = carService.resisterCar(CarRequestDto.builder()
+                .name("씽씽이")
+                .status(CarStatus.AVAILABLE)
+                .pricePerHours(10000)
+                .type(CarType.GENESIS)
+                .build());
 
-        Car car = carRepository.findById(1L).get();
+        Long carId2 = carService.resisterCar(CarRequestDto.builder()
+                .name("꼬마자동차")
+                .status(CarStatus.AVAILABLE)
+                .pricePerHours(20000)
+                .type(CarType.SORENTO)
+                .build());
 
-        Reservation reservation1 = Reservation.builder()
-                .member(grace)
-                .car(car)
-                .status(ReservationStatus.RESERVATION)
-                .build();
+        ReservationRequestDto reservationRequestDto1 = new ReservationRequestDto(carId1, grace);
+        ReservationRequestDto reservationRequestDto2 = new ReservationRequestDto(carId2, eunmo);
 
-        Car car1 = carRepository.findById(2L).get();
+        reservationService.reservation(reservationRequestDto1);
+        reservationService.reservation(reservationRequestDto2);
 
-        Reservation reservation2 = Reservation.builder()
-                .member(hong)
-                .car(car1)
-                .status(ReservationStatus.RESERVATION)
-                .build();
-
-        reservationRepository.save(reservation1);
-        reservationRepository.save(reservation2);
 
     }
 }

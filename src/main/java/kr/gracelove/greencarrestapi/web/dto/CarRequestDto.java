@@ -3,6 +3,7 @@ package kr.gracelove.greencarrestapi.web.dto;
 import kr.gracelove.greencarrestapi.domain.car.Car;
 import kr.gracelove.greencarrestapi.domain.car.CarStatus;
 import kr.gracelove.greencarrestapi.domain.car.CarType;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -12,6 +13,7 @@ public class CarRequestDto {
     private CarStatus status;
     private int pricePerHours;
 
+    @Builder
     public CarRequestDto(String name, CarType type, CarStatus status, int pricePerHours) {
         this.name = name;
         this.type = type;
