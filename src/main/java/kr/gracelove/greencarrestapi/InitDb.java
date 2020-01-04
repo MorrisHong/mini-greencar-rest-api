@@ -33,7 +33,7 @@ public class InitDb implements ApplicationRunner {
         Address address2 = new Address("경기도 용인시", "백옥대로", "111-1111");
 
         IntStream.rangeClosed(1, 10).forEach( index -> {
-            Car car = Car.builder().name("붕붕이" + index).status(CarStatus.AVAILABLE).type(CarType.K5).build();
+            Car car = Car.builder().name("붕붕이" + index).status(CarStatus.AVAILABLE).type(CarType.K5).pricePerHours(20000).build();
             carRepository.save(car);
         });
 

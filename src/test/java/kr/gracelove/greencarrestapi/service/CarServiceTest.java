@@ -50,7 +50,7 @@ class CarServiceTest {
     void 자동차_등록_and_단건조회() {
         given(carRepository.save(any())).willReturn(car);
         given(carRepository.findById(any())).willReturn(Optional.of(car));
-        CarRequestDto requestDto = new CarRequestDto(car.getName(), car.getType(), car.getStatus());
+        CarRequestDto requestDto = new CarRequestDto(car.getName(), car.getType(), car.getStatus(), 20000);
         Long carId = carService.resisterCar(requestDto);
 
         CarResponseDto car = carService.getCar(carId);

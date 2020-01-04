@@ -22,11 +22,13 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
+    @Transactional(readOnly = true)
     public MemberResponseDto getMember(Long id) {
         Member member = memberRepository.findById(id).orElseThrow( () -> new MemberNotFoundException(id) );
         return new MemberResponseDto(member);
     }
 
+    @Transactional(readOnly = true)
     public Page<MemberResponseDto> getMembers(Pageable pageable) {
         return memberRepository.findAll(pageable).map(MemberResponseDto::new);
     }
