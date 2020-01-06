@@ -39,7 +39,7 @@ public class InitDb implements ApplicationRunner {
         Address address2 = new Address("경기도 용인시", "백옥대로", "111-1111");
 
         IntStream.rangeClosed(1, 10).forEach( index -> {
-            carService.resisterCar(new CarRequestDto("붕붕이" + index, CarType.SONATA, CarStatus.AVAILABLE, 20000));
+            carService.resisterCar(new CarRequestDto("붕붕이" + index, CarType.SONATA, CarStatus.AVAILABLE, 2000));
         });
 
 
@@ -61,14 +61,14 @@ public class InitDb implements ApplicationRunner {
         Long carId1 = carService.resisterCar(CarRequestDto.builder()
                 .name("씽씽이")
                 .status(CarStatus.AVAILABLE)
-                .pricePerHours(10000)
+                .pricePerMinute(1000)
                 .type(CarType.GENESIS)
                 .build());
 
         Long carId2 = carService.resisterCar(CarRequestDto.builder()
                 .name("꼬마자동차")
                 .status(CarStatus.AVAILABLE)
-                .pricePerHours(20000)
+                .pricePerMinute(2000)
                 .type(CarType.SORENTO)
                 .build());
 

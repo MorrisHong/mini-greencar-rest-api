@@ -33,11 +33,14 @@ public class Reservation extends BaseTimeEntity {
     @NotNull
     private ReservationStatus status;
 
+    private int reservationMinuteTime;
+
     @Builder
-    public Reservation(Car car, Member member, ReservationStatus status) {
+    public Reservation(Car car, Member member, ReservationStatus status, int reservationMinuteTime) {
         this.car = car;
         this.member = member;
         this.status = status;
+        this.reservationMinuteTime = reservationMinuteTime;
     }
 
     public void cancelReservation() {

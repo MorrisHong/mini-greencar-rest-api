@@ -24,14 +24,14 @@ public class Car extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private CarStatus status;
 
-    private int pricePerHours;
+    private int pricePerMinute;
 
     @Builder
-    public Car(String name, CarType type, CarStatus status, int pricePerHours) {
+    public Car(String name, CarType type, CarStatus status, int pricePerMinute) {
         this.name = name;
         this.type = type;
         this.status = status;
-        this.pricePerHours = pricePerHours;
+        this.pricePerMinute = pricePerMinute;
     }
 
     public void changeStatus(CarStatus status) {

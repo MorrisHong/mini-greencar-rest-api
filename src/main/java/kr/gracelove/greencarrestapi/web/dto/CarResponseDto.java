@@ -14,13 +14,13 @@ public class CarResponseDto {
     private String name;
     private CarType type;
     private CarStatus status;
-    private int pricePerHours;
+    private int pricePerMinute;
 
     public CarResponseDto(Car car) {
         this.id = car.getId();
         this.name = car.getName();
         this.type = car.getType();
         this.status = car.getStatus();
-        this.pricePerHours = car.getPricePerHours();
+        this.pricePerMinute = car.getPricePerMinute();
     }
 }

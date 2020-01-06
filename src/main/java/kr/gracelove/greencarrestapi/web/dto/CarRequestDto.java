@@ -11,14 +11,14 @@ public class CarRequestDto {
     private String name;
     private CarType type;
     private CarStatus status;
-    private int pricePerHours;
+    private int pricePerMinute;
 
     @Builder
-    public CarRequestDto(String name, CarType type, CarStatus status, int pricePerHours) {
+    public CarRequestDto(String name, CarType type, CarStatus status, int pricePerMinute) {
         this.name = name;
         this.type = type;
         this.status = status;
-        this.pricePerHours = pricePerHours;
+        this.pricePerMinute = pricePerMinute;
     }
 
     public Car toEntity() {
@@ -26,7 +26,7 @@ public class CarRequestDto {
                 .name(name)
                 .type(type)
                 .status(status)
-                .pricePerHours(pricePerHours)
+                .pricePerMinute(pricePerMinute)
                 .build();
     }
 }

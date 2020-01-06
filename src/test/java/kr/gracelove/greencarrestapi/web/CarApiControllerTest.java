@@ -46,7 +46,7 @@ class CarApiControllerTest {
         CarStatus status = car.getStatus();
 
         String url = "http://localhost:"+port+"/api/v1/cars/"+id;
-        CarRequestDto requestDto = new CarRequestDto(car.getName(), car.getType(), car.getStatus(), car.getPricePerHours());
+        CarRequestDto requestDto = new CarRequestDto(car.getName(), car.getType(), car.getStatus(), car.getPricePerMinute());
         HttpEntity<CarRequestDto> requestEntity = new HttpEntity<>(requestDto);
         ResponseEntity<CarResponseDto> exchange = restTemplate.exchange(url, HttpMethod.GET, requestEntity, CarResponseDto.class);
 
@@ -65,7 +65,7 @@ class CarApiControllerTest {
                 .name("테스트")
                 .status(CarStatus.AVAILABLE)
                 .type(CarType.SONATA)
-                .pricePerHours(20000)
+                .pricePerMinute(2000)
                 .build();
 
         Car savedCar = carRepository.save(entity);
